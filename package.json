@@ -4,7 +4,7 @@
   "description": "MCP server for live Turkey data: gold & silver prices, TCMB exchange rates, fuel prices, prayer times, and Kandilli earthquake feed — powered by the free turkpidya.com public API.",
   "mcpName": "io.github.bodyegypt/turkey-data-mcp",
   "license": "MIT",
-  "author": "Pidya Group <info@pidyagroup.com> (https://turkpidya.com)",
+  "author": "Abdalla <bodyegypt@gmail.com> (https://turkpidya.com)",
   "homepage": "https://turkpidya.com/developers",
   "repository": {
     "type": "git",

@@ -78,4 +78,4 @@ npm run smoke   # run all tools against the live API via a real MCP stdio client
 
 ## License & attribution
 
-MIT © [Pidya Group](https://turkpidya.com). Data served by [turkpidya.com](https://turkpidya.com) — attribution appreciated when republishing data. Contact: info@pidyagroup.com
+MIT © [Abdalla](https://github.com/bodyegypt). Data served by [turkpidya.com](https://turkpidya.com) — attribution appreciated when republishing data. Contact: info@pidyagroup.com

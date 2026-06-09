@@ -25,7 +25,7 @@ Everything downstream (official MCP registry, PulseMCP/Glama auto-indexing) unbl
 
 ```bash
 cd /Users/abdalla/turkpidya-revival/turkey-data-mcp
-npm login        # opens browser; use the Pidya Group npm account (create one at npmjs.com if needed)
+npm login        # opens browser; use your npm account
 npm publish      # runs the build automatically via prepublishOnly
 ```
 
