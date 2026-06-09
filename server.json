@@ -1,0 +1,24 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.bodyegypt/turkey-data-mcp",
+  "title": "Turkey Data",
+  "description": "Live Turkey data: gold & silver prices, TCMB exchange rates, EPDK fuel prices, Diyanet prayer times, Kandilli earthquakes — via the free turkpidya.com API.",
+  "version": "1.0.0",
+  "websiteUrl": "https://turkpidya.com/developers",
+  "repository": {
+    "url": "https://github.com/bodyegypt/turkey-data-mcp",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "turkey-data-mcp",
+      "version": "1.0.0",
+      "runtimeHint": "npx",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

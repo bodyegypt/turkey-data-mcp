@@ -1,0 +1,4 @@
+node_modules/
+*.log
+.DS_Store
+# dist/ is committed on purpose so `npx github:bodyegypt/turkey-data-mcp` works without a build step
