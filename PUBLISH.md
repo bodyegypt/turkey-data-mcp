@@ -9,6 +9,7 @@ What's done and what the owner needs to run. Everything below assumes you're in 
 | GitHub repo (`bodyegypt/turkey-data-mcp`) | ✅ Published (public) — `gh` was already authenticated |
 | npm (`turkey-data-mcp`) | ⏳ Prepared — npm login required (name verified available) |
 | Official MCP registry (registry.modelcontextprotocol.io) | ⏳ Prepared — `server.json` validated, auth flow proven working (publish attempt reached final validation: "NPM package not found"); unblocks the moment npm publish happens |
+| mcp.so | ✅ Submitted — [chatmcp/mcpso#2693](https://github.com/chatmcp/mcpso/issues/2693) |
 | Smithery / other directories | 📝 Listing text below |
 
 Until npm publish happens, anyone can already use the server straight from GitHub:
@@ -79,5 +80,5 @@ The same blurb works for mcp.so, PulseMCP, and Glama directory submissions (all 
 
 Directory mechanics (checked):
 - **PulseMCP / Glama:** auto-discover from the official MCP registry and GitHub — no manual submission needed once step 2 is done.
-- **mcp.so:** submit form requires sign-in; alternatively a GitHub issue on `chatmcp/mcpso` works (gh CLI is already authenticated for this).
+- **mcp.so:** ✅ SUBMITTED — https://github.com/chatmcp/mcpso/issues/2693 (via GitHub issue on `chatmcp/mcpso`; their team processes it from there).
 - **Smithery:** GitHub OAuth login in browser at https://smithery.ai/new.
