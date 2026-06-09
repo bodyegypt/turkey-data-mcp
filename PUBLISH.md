@@ -19,12 +19,20 @@ claude mcp add turkey-data -- npx -y github:bodyegypt/turkey-data-mcp
 
 (`dist/` is committed, so no build step is needed.)
 
-## 1. Publish to npm (2 minutes)
+## 1. Publish to npm (2 minutes) — THE ONLY HUMAN STEP LEFT
+
+Everything downstream (official MCP registry, PulseMCP/Glama auto-indexing) unblocks from this one step.
 
 ```bash
+cd /Users/abdalla/turkpidya-revival/turkey-data-mcp
 npm login        # opens browser; use the Pidya Group npm account (create one at npmjs.com if needed)
 npm publish      # runs the build automatically via prepublishOnly
 ```
+
+> Browser automation was authorized to complete this, but the Claude Chrome extension was not
+> connected (Chrome running, extension not paired with this Claude Code account). Reconnect the
+> extension (claude.ai/chrome, restart Chrome, same claude.ai account) and the agent can drive
+> the `npm login` web flow; or just run the two commands above yourself.
 
 Verify: `npm view turkey-data-mcp` and `npx -y turkey-data-mcp` (should print the startup line to stderr).
 
@@ -68,3 +76,8 @@ Smithery (smithery.ai) indexes GitHub repos — claim the server at https://smit
 > **Homepage:** https://turkpidya.com/developers
 
 The same blurb works for mcp.so, PulseMCP, and Glama directory submissions (all accept a GitHub URL: https://github.com/bodyegypt/turkey-data-mcp).
+
+Directory mechanics (checked):
+- **PulseMCP / Glama:** auto-discover from the official MCP registry and GitHub — no manual submission needed once step 2 is done.
+- **mcp.so:** submit form requires sign-in; alternatively a GitHub issue on `chatmcp/mcpso` works (gh CLI is already authenticated for this).
+- **Smithery:** GitHub OAuth login in browser at https://smithery.ai/new.

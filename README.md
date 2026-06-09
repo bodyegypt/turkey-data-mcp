@@ -24,6 +24,8 @@ Example prompts once installed:
 
 Requires Node.js ≥ 18.
 
+> **Note:** until the npm package goes live you can install straight from GitHub — replace `turkey-data-mcp` with `github:bodyegypt/turkey-data-mcp` in any snippet below (no build step needed, `dist/` is committed).
+
 ### Claude Code (CLI)
 
 ```bash
