@@ -8,7 +8,7 @@ What's done and what the owner needs to run. Everything below assumes you're in 
 |---------|--------|
 | GitHub repo (`bodyegypt/turkey-data-mcp`) | ✅ Published (public) — `gh` was already authenticated |
 | npm (`turkey-data-mcp`) | ⏳ Prepared — npm login required (name verified available) |
-| Official MCP registry (registry.modelcontextprotocol.io) | ⏳ Prepared — `server.json` ready; requires npm publish first + GitHub login via mcp-publisher |
+| Official MCP registry (registry.modelcontextprotocol.io) | ⏳ Prepared — `server.json` validated, auth flow proven working (publish attempt reached final validation: "NPM package not found"); unblocks the moment npm publish happens |
 | Smithery / other directories | 📝 Listing text below |
 
 Until npm publish happens, anyone can already use the server straight from GitHub:
@@ -30,19 +30,25 @@ Verify: `npm view turkey-data-mcp` and `npx -y turkey-data-mcp` (should print th
 
 > Note: `package.json` already contains `"mcpName": "io.github.bodyegypt/turkey-data-mcp"` — the official MCP registry uses this field to verify npm package ownership. Don't remove it.
 
-## 2. Publish to the official MCP registry (3 minutes, after npm)
+## 2. Publish to the official MCP registry (1 minute, after npm)
+
+`mcp-publisher` is already installed (Homebrew) and the auth flow is proven: the registry accepts the `gh` CLI's GitHub token in exchange for a publish JWT scoped to `io.github.bodyegypt/*`. The JWT only lives ~5 minutes, so run these together:
 
 ```bash
-# Install the publisher CLI (pick one)
-brew install mcp-publisher
-# or: curl -L "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m).tar.gz" | tar xz mcp-publisher
+cd /Users/abdalla/turkpidya-revival/turkey-data-mcp
 
-# Authenticate with the GitHub account that owns the repo (bodyegypt)
-mcp-publisher login github
+# Exchange gh token for a fresh registry JWT (writes ~/.config/mcp-publisher/token.json)
+curl -s -X POST "https://registry.modelcontextprotocol.io/v0/auth/github-at" \
+  -H "Content-Type: application/json" \
+  -d "{\"github_token\":\"$(gh auth token)\"}" \
+| python3 -c "import json,sys; t=json.load(sys.stdin)['registry_token']; json.dump({'method':'github','registry':'https://registry.modelcontextprotocol.io','token':t}, open('$HOME/.config/mcp-publisher/token.json','w'))"
 
-# Publish (server.json is already in the repo root and validates against the 2025-12-11 schema)
+# Publish (server.json already validates — a publish attempt got all the way to
+# 'NPM package not found', which step 1 fixes)
 mcp-publisher publish
 ```
+
+(Interactive alternative: `mcp-publisher login github` then `mcp-publisher publish`.)
 
 Verify: `curl "https://registry.modelcontextprotocol.io/v0/servers?search=turkey-data"`
 
