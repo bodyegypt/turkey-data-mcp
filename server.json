@@ -3,7 +3,7 @@
   "name": "io.github.bodyegypt/turkey-data-mcp",
   "title": "Turkey Data",
   "description": "Live Turkey data: gold prices, TCMB FX rates, fuel prices, prayer times, Kandilli earthquakes.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "websiteUrl": "https://turkpidya.com/developers",
   "repository": {
     "url": "https://github.com/bodyegypt/turkey-data-mcp",
@@ -14,7 +14,7 @@
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "turkey-data-mcp",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "runtimeHint": "npx",
       "transport": {
         "type": "stdio"

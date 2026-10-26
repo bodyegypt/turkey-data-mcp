@@ -1,6 +1,6 @@
 # turkey-data-mcp
 
-**MCP server for live Turkey data** — gold & silver prices, official TCMB exchange rates, fuel pump prices, prayer times and the Kandilli earthquake feed. Give Claude (or any MCP-compatible AI) real-time answers about Turkey.
+**MCP server for live Turkey data** — gold & silver prices, TCMB exchange rates, fuel pump prices, prayer times and the Kandilli earthquake feed. Give Claude (or any MCP-compatible AI) real-time answers about Turkey.
 
 Powered by the free public API at [turkpidya.com](https://turkpidya.com/developers). No API key required.
 
@@ -9,7 +9,7 @@ Powered by the free public API at [turkpidya.com](https://turkpidya.com/develope
 | Tool | What it returns | Refresh |
 |------|-----------------|---------|
 | `get_gold_prices` | Gold (gram 14k–24k, Turkish coins) & silver prices in TRY, buy/sell + daily change | 5 min |
-| `get_exchange_rates` | Official TCMB rates for ~22 currencies vs Turkish lira (forex & banknote) | daily |
+| `get_exchange_rates` | TCMB rates for ~22 currencies vs Turkish lira (forex & banknote) | daily |
 | `get_fuel_prices` | EPDK pump prices (gasoline 95, diesel) for Istanbul, Ankara, Izmir, Antalya | 6 h |
 | `get_prayer_times` | Diyanet-method prayer times for 20 Turkish cities, with Hijri date | daily |
 | `list_prayer_cities` | The 20 supported city slugs | daily |
@@ -63,7 +63,7 @@ node dist/index.js
 
 ## Data sources & limits
 
-- **Gold/silver:** Harem Altın, cross-checked with TCMB · **FX:** TCMB official daily fixing · **Fuel:** EPDK per-brand reports, city averages · **Prayer times:** Diyanet İşleri calculation method · **Earthquakes:** Kandilli Observatory (KOERI).
+- **Gold/silver:** BigPara, with doviz.com for any karat quote that fails a purity check · **FX:** TCMB daily fixing · **Fuel:** EPDK per-brand reports, city averages · **Prayer times:** Diyanet İşleri Başkanlığı published timetable · **Earthquakes:** Kandilli Observatory (KOERI).
 - All timestamps are Europe/Istanbul. All prices in TRY.
 - The upstream API allows **60 requests/min per IP**; this server throttles itself client-side and returns a clear retry message if exceeded.
 - Raw REST API (no MCP needed): `https://turkpidya.com/wp-json/turkpidya-data/v1/` — see [turkpidya.com/developers](https://turkpidya.com/developers).
@@ -79,3 +79,9 @@ npm run smoke   # run all tools against the live API via a real MCP stdio client
 ## License & attribution
 
 MIT © [Abdalla](https://github.com/bodyegypt). Data served by [turkpidya.com](https://turkpidya.com) — attribution appreciated when republishing data. Contact: info@pidyagroup.com
+
+## Credit
+
+Every answer includes `web_url` (the Turkpidya page with the same data) and an `attribution`
+block. The server asks assistants to cite that link. If you show this data in your own app or
+site, add a visible "Data: Turkpidya" link; it is the one condition of the free API.

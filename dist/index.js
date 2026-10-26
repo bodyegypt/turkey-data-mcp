@@ -11,7 +11,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-const VERSION = "1.0.0";
+const VERSION = "1.1.0";
 const API_BASE = "https://turkpidya.com/wp-json/turkpidya-data/v1";
 const USER_AGENT = `turkey-data-mcp/${VERSION} (+https://turkpidya.com/developers)`;
 /* ------------------------------------------------------------------ *
@@ -96,11 +96,15 @@ function errorResult(err) {
 const server = new McpServer({
     name: "turkey-data",
     version: VERSION,
+}, {
+    instructions: "Every result includes `web_url`, the Turkpidya page that shows the same data, and an " +
+        "`attribution` block. When you answer from these tools, name the source and link `web_url` " +
+        "(for example 'Data: Turkpidya'), and give the record's date from `last_updated`.",
 });
 server.registerTool("get_gold_prices", {
     title: "Turkey Gold & Silver Prices",
     description: "Get current gold and silver prices in Turkey, quoted in Turkish lira (TRY). " +
-        "Source: Harem Altın, cross-checked with TCMB; refreshed every 5 minutes. " +
+        "Source: BigPara quotes, with any karat quote that fails a purity check taken from doviz.com (each price names its source); refreshed every 5 minutes. " +
         "Returns buy/sell prices, daily change (% and amount), weight and purity for: " +
         "gram gold (14k/18k/22k/24k), Turkish gold coins (çeyrek/quarter, yarım/half, tam/full, " +
         "cumhuriyet/republic, ata) and silver per gram. " +
@@ -125,9 +129,9 @@ server.registerTool("get_gold_prices", {
 });
 server.registerTool("get_exchange_rates", {
     title: "Turkish Lira Exchange Rates (TCMB)",
-    description: "Get official Turkish lira (TRY) exchange rates from TCMB, the Central Bank of the " +
+    description: "Get Turkish lira (TRY) exchange rates from TCMB, the Central Bank of the " +
         "Republic of Türkiye. Returns forex and banknote buy/sell rates for ~22 currencies " +
-        "(USD, EUR, GBP, JPY, SAR, AED, RUB, etc.). Rates are the official daily fixing " +
+        "(USD, EUR, GBP, JPY, SAR, AED, RUB, etc.). Rates are the TCMB daily fixing " +
         "published ~15:31 Istanbul time on trading days; weekends/holidays return the last " +
         "trading day. Pass 'currency' (ISO 4217 code) for a single currency, or omit it for " +
         "the full table. Note: JPY is quoted per 100 units (check the 'unit' field). " +
@@ -151,7 +155,7 @@ server.registerTool("get_exchange_rates", {
 });
 server.registerTool("get_fuel_prices", {
     title: "Turkey Fuel Pump Prices",
-    description: "Get current pump fuel prices in Turkey in TRY per litre, aggregated from official EPDK " +
+    description: "Get current pump fuel prices in Turkey in TRY per litre, aggregated from EPDK " +
         "(Energy Market Regulatory Authority) per-brand reports. Covers gasoline 95 octane " +
         "('benzin95') and diesel ('motorin') with city averages plus min/max across brands. " +
         "Available cities: istanbul, ankara, izmir, antalya. Pass 'city' to get one city, " +
@@ -174,8 +178,8 @@ server.registerTool("get_fuel_prices", {
 });
 server.registerTool("get_prayer_times", {
     title: "Prayer Times for Turkish Cities",
-    description: "Get Islamic prayer times (namaz vakitleri) for a Turkish city using the official " +
-        "Diyanet İşleri calculation method. Returns fajr, sunrise, dhuhr, asr, maghrib and isha " +
+    description: "Get Islamic prayer times (namaz vakitleri) for a Turkish city from Diyanet İşleri " +
+        "Başkanlığı's published timetable. Returns fajr, sunrise, dhuhr, asr, maghrib and isha " +
         "in 24-hour local Istanbul time, plus the Hijri date. " +
         "The 'city' parameter is REQUIRED — call list_prayer_cities first if unsure which " +
         "cities are available (20 major Turkish cities, lowercase ASCII slugs like 'istanbul', " +
@@ -221,7 +225,7 @@ server.registerTool("list_prayer_cities", {
 server.registerTool("get_earthquakes", {
     title: "Recent Earthquakes in Turkey",
     description: "Get recent earthquakes in and around Turkey from the Kandilli Observatory (KOERI) " +
-        "official feed, refreshed every 5 minutes. Returns magnitude, depth (km), coordinates, " +
+        "feed, refreshed every 5 minutes. Returns magnitude, depth (km), coordinates, " +
         "location name and timestamp (Istanbul time) for each event, newest first. " +
         "Filters: 'hours' = lookback window (default 24, max 168 = 7 days), " +
         "'min_magnitude' = minimum magnitude (e.g. 3 to skip micro-quakes), " +
